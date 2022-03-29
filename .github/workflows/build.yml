@@ -32,3 +32,10 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Test
         run: npm run test-jenkins
+
+      # Upload test results
+      - uses: actions/upload-artifact@v2  
+        if: success() || failure()        # run this step even if previous step failed
+        with:
+          name: test-results
+          path: ./coverage/test.results.xml
